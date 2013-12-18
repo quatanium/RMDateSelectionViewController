@@ -154,12 +154,18 @@
         duration = 1.0f;
     }
     
-    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    void (^showBlock)() = ^{
         aViewController.backgroundView.alpha = 1;
         
         [rootViewController.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    };
+    
+    if(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:showBlock completion:^(BOOL finished) {
+        }];
+    else
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:1 options:UIViewAnimationOptionBeginFromCurrentState animations:showBlock completion:^(BOOL finished) {
+        }];
 }
 
 + (void)dismissDateSelectionViewController:(RMDateSelectionViewController *)aViewController fromViewController:(UIViewController *)rootViewController {
@@ -213,7 +219,7 @@
         self.cancelAndSelectButtonContainer.backgroundColor = self.backgroundColor;
     }
     
-    if(!self.disableMotionEffects)
+    if(floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 && !self.disableMotionEffects)
         [self addMotionEffects];
 }
 
@@ -267,6 +273,9 @@
 
 #pragma mark - Properties
 - (void)setDisableMotionEffects:(BOOL)newDisableMotionEffects {
+    if(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
+        return;
+    
     if(_disableMotionEffects != newDisableMotionEffects) {
         _disableMotionEffects = newDisableMotionEffects;
         
