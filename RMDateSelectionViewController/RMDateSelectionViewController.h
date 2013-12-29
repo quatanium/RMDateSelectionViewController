@@ -76,7 +76,7 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
 /**
  Will return the instance of UIDatePicker that is used. This property will be nil until -[RMDateSelectionViewController show] or -[RMDateSelectionViewController showFromViewController:] is called.
  */
-@property (weak, readonly) UIDatePicker *datePicker;
+@property (nonatomic, readonly) UIDatePicker *datePicker;
 
 /**
  Used to set the delegate.
@@ -113,6 +113,21 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
  @return Returns a new instance of `RMDateSelectionViewController`
  */
 + (instancetype)dateSelectionController;
+
+/**
+ Set a localized title for the select button. Default is 'Now'.
+ */
++ (void)setLocalizedTitleForNowButton:(NSString *)newLocalizedTitle;
+
+/**
+ Set a localized title for the select button. Default is 'Cancel'.
+ */
++ (void)setLocalizedTitleForCancelButton:(NSString *)newLocalizedTitle;
+
+/**
+ Set a localized title for the select button. Default is 'Select'.
+ */
++ (void)setLocalizedTitleForSelectButton:(NSString *)newLocalizedTitle;
 
 /// @name Instance Methods
 
