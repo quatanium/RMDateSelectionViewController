@@ -19,7 +19,7 @@ The labels of the UIDatePicker are still black because Apple does not allow to c
 ###CocoaPods
 ```ruby
 platform :ios, '7.0'
-pod "RMDateSelectionViewController", "~> 1.1.0"
+pod "RMDateSelectionViewController", "~> 1.2.1"
 ```
 
 ###Manual
@@ -72,6 +72,9 @@ Additionally, there is a method called `showFromViewController:`. With this meth
 ###Limitations
 Due to some UIKit internals, it is not possible to show a date selection view controller from an instance of UITableViewController. If the UITableViewController instance is wrapped into an UINavigationController instance the date selection view controller will be shown from the UINavigationController instance. If no UINavigationController can be used instead, an error will be logged and showing the date selection view controller will be canceled (to prevent your app from crashing).
 
+## Documentation
+There is an additional documentation available provided by the CocoaPods team. Take a look at [cocoadocs.org](http://cocoadocs.org/docsets/RMDateSelectionViewController/).
+
 ## Requirements
 Works with:
 
@@ -95,7 +98,13 @@ Localizations:
 * Vinh Nguyen (Vietnamese)
 
 Code contributions:
-* Robin Franssen (Block support)
+* Robin Franssen
+	* Block support
+* Digeon Benjamin 
+	* Delegate method when now button is pressed
+	* Cancel delegate method is called when background view is tapped
+* Denis Andrasec
+	* Bugfixes
 
 I want to thank everyone who has contributed code and/or time to this project!
 

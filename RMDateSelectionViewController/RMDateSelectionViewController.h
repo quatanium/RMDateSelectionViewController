@@ -61,11 +61,22 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
 - (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate;
 
 /**
- This delegate method is called when the user selects the cancel button.
+ This delegate method is called when the user selects the cancel button or taps the darkened background (if `backgroundTapsDisabled` is set to NO).
  
  @param vc The date selection view controller that just canceled.
  */
 - (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc;
+
+@optional
+
+/**
+ *  This delegate is called when the now button of the date selection view controller has been pressed.
+ *  
+ *  Implementation of this delegate is optional. If you choose to implement it, you are responsible to do whatever should be done when the now button has been pressed. If you do not choose to implement it, the default behavior is to set the date selection control to the current date.
+ *
+ *  @param vc The date selection view controller whose now button has been pressed.
+ */
+- (void)dateSelectionViewControllerNowButtonPressed:(RMDateSelectionViewController *)vc;
 
 @end
 
@@ -74,9 +85,16 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
 /// @name Properties
 
 /**
- Will return the instance of UIDatePicker that is used. This property will be nil until -[RMDateSelectionViewController show] or -[RMDateSelectionViewController showFromViewController:] is called.
+ Will return the instance of UIDatePicker that is used.
  */
 @property (nonatomic, readonly) UIDatePicker *datePicker;
+
+/**
+ Will return the label that is used as a title for the picker. You can use this property to set a title and to customize the appearance of the title.
+ 
+ If you want to set a title, be sure to set it before showing the picker view controller as otherwise the title will not be shown.
+ */
+@property (nonatomic, strong, readonly) UILabel *titleLabel;
 
 /**
  Used to set the delegate.
@@ -96,6 +114,11 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
 @property (strong, nonatomic) UIColor *backgroundColor;
 
 /**
+ *  Used to set the background color when the user selets a button.
+ */
+@property (strong, nonatomic) UIColor *selectedBackgroundColor;
+
+/**
  Used to enable or disable motion effects. Default value is NO.
  */
 @property (assign, nonatomic) BOOL disableMotionEffects;
@@ -111,6 +134,11 @@ typedef void (^RMDateCancelBlock)(RMDateSelectionViewController *vc);
  Must be set before -[RMDateSelectionViewController show] or -[RMDateSelectionViewController showFromViewController:] is called or otherwise this property has no effect.
  */
 @property (assign, nonatomic) BOOL hideNowButton;
+
+/**
+ *  When YES taps on the background view are ignored. Default value is NO.
+ */
+@property (assign, nonatomic) BOOL backgroundTapsDisabled;
 
 /// @name Class Methods
 

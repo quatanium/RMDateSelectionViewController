@@ -36,6 +36,7 @@
 - (IBAction)openDateSelectionController:(id)sender {
     RMDateSelectionViewController *dateSelectionVC = [RMDateSelectionViewController dateSelectionController];
     dateSelectionVC.delegate = self;
+    dateSelectionVC.titleLabel.text = @"This is an example title.\n\nPlease choose a date and press 'Select' or 'Cancel'.";
     
     //You can enable or disable bouncing and motion effects
     //dateSelectionVC.disableBouncingWhenShowing = YES;
@@ -43,7 +44,7 @@
     
     [dateSelectionVC show];
     
-    //After -[RMDateSelectionViewController show] or -[RMDateSelectionViewController showFromViewController:] has been called you can access the actual UIDatePicker via the datePicker property
+    //You can access the actual UIDatePicker via the datePicker property
     dateSelectionVC.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     dateSelectionVC.datePicker.minuteInterval = 5;
     dateSelectionVC.datePicker.date = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
@@ -59,13 +60,14 @@
     //You can enable or disable bouncing and motion effects
     //dateSelectionVC.disableBouncingWhenShowing = YES;
     //dateSelectionVC.disableMotionEffects = YES;
+    
     [dateSelectionVC showWithSelectionHandler:^(RMDateSelectionViewController *vc, NSDate *aDate) {
         NSLog(@"Successfully selected date: %@ (With block)", aDate);
     } andCancelHandler:^(RMDateSelectionViewController *vc) {
         NSLog(@"Date selection was canceled (with block)");
     }];
     
-    //After -[RMDateSelectionViewController show] or -[RMDateSelectionViewController showFromViewController:] has been called you can access the actual UIDatePicker via the datePicker property
+    //You can access the actual UIDatePicker via the datePicker property
     dateSelectionVC.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     dateSelectionVC.datePicker.minuteInterval = 5;
     dateSelectionVC.datePicker.date = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
